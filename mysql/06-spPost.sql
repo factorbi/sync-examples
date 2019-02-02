@@ -1,26 +1,6 @@
--- DROP TABLE IF EXISTS logPostInitial;
-CREATE TABLE IF NOT EXISTS logPostInitial(
-  id  int not null auto_increment unique key,
-  message  varchar(100) null,
-  fecha  timestamp DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT PRIMARY KEY(id)
-  ) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-CALL sp_AlterTable('logPostInitial', 'serviceID', 'varchar(36)', 'NULL', '');
-CALL sp_AlterTable('logPostInitial', 'syncID', 'int', 'NULL', '');
-
--- DROP TABLE IF EXISTS logPostFinal;
-CREATE TABLE IF NOT EXISTS logPostFinal(
-  id  int not null auto_increment unique key,
-  message  varchar(100) null,
-  fecha  timestamp DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT PRIMARY KEY(id)
-  ) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-CALL sp_AlterTable('logPostFinal', 'serviceID', 'varchar(36)', 'NULL', '');
-CALL sp_AlterTable('logPostFinal', 'syncID', 'int', 'NULL', '');
-
 #***********************  VERSION 115+ ***********************
 
-delimiter $$
+DELIMITER $$
 DROP PROCEDURE IF EXISTS `spPostInitial`$$
 CREATE PROCEDURE `spPostInitial`(
   _serviceID varchar(36),
@@ -37,7 +17,7 @@ postinitial:BEGIN
   DECLARE _numDays decimal(10,0);
   DECLARE _tableName, _comment1, _comment2 varchar(255);
 
-  SET lc_time_names = 'es_MX';
+  SET lc_time_names = 'en_US';
   SET group_concat_max_len = 4294967295;
   SET _count_bipost_sync_info = 0;
 
@@ -51,7 +31,7 @@ postinitial:BEGIN
 
   SELECT NULLIF(TRIM(timezone),'') INTO _timezone FROM syncInfoStores WHERE serviceID = _serviceID;
   IF _timezone IS NULL THEN
-    SELECT IFNULL(NULLIF(TRIM(timezone),''),'America/Mexico_City') INTO _timezone FROM syncInfo WHERE serviceID = _serviceID;
+    SELECT IFNULL(NULLIF(TRIM(timezone),''),'US/Eastern') INTO _timezone FROM syncInfo WHERE serviceID = _serviceID;
   END IF;
   SELECT CONVERT_TZ(syncDate, 'UTC', _timezone) INTO _timestamp FROM `bipost_system`.bipost_sync_info WHERE id = _syncID;
   SELECT IFNULL(CAST(_timestamp AS date),'0000-00-00 00:00:00.0000') INTO _syncDate;
@@ -87,8 +67,7 @@ postinitial:BEGIN
       SET _prevId = _rid, _count_table = 0;
     END WHILE;
 
-  #***************** NOTA: Se borran al reves las tablas comenzando por lo hijos *****************
-  #*********** No se borran dentro del ciclo porque se debe hacer en un orden especifico *********
+  #***************** Delete child tables first *****************
 
     SET _numDays = 0, _count_table = 0, _tableName = 'claves_articulos';
     SELECT CAST(comment1 AS decimal(10,0))*(-1) INTO _numDays FROM `bipost_system`.bipost_sync_table WHERE id = _syncID AND tableName = _tableName;
@@ -110,9 +89,7 @@ postinitial:BEGIN
         WHERE ((CAST(clientes.FECHA_HORA_CREACION AS date) BETWEEN date_add(_syncDate, INTERVAL _numDays day) AND _syncDate) OR (CAST(clientes.FECHA_HORA_ULT_MODIF AS date) BETWEEN date_add(_syncDate, INTERVAL _numDays day) AND _syncDate));
     END IF;
 
-
-
-  #***************** NOTA: Aqui van tablas padre *****************
+  #***************** Delete header/parent tables *****************
 
     SET _numDays = 0, _count_table = 0, _tableName = 'articulos';
     SELECT CAST(comment1 AS decimal(10,0))*(-1) INTO _numDays FROM `bipost_system`.bipost_sync_table WHERE id = _syncID AND tableName = _tableName;
@@ -130,7 +107,7 @@ postinitial:BEGIN
         WHERE ((CAST(FECHA_HORA_CREACION AS date) BETWEEN date_add(_syncDate, INTERVAL _numDays day) AND _syncDate) OR (CAST(FECHA_HORA_ULT_MODIF AS date) BETWEEN date_add(_syncDate, INTERVAL _numDays day) AND _syncDate));
     END IF;
 
-  #******** TABLAS ESPECIALES
+  #***************** Tables with special comments *****************
     SET _numDays = 0, _count_table = 0, _tableName = 'saldos_co';
     SELECT comment2 INTO _comment2 FROM `bipost_system`.bipost_sync_table WHERE id = _syncID AND tableName = _tableName;
     SELECT COUNT(*) INTO _count_table FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_name = _tableName AND table_schema = schema();
@@ -170,6 +147,9 @@ postfinal:BEGIN
   DECLARE _numDays decimal(10,0);
   DECLARE _tableName, _comment1, _comment2 varchar(255);
 
+  SET lc_time_names = 'en_US';
+  SET group_concat_max_len = 4294967295;
+
   SELECT COUNT(*) INTO _count_bipost_sync_info FROM `bipost_system`.bipost_sync_info WHERE id = _syncID AND serviceID = _serviceID;
 
   IF _count_bipost_sync_info = 0 THEN
@@ -180,7 +160,7 @@ postfinal:BEGIN
 
   SELECT NULLIF(TRIM(timezone),'') INTO _timezone FROM syncInfoStores WHERE serviceID = _serviceID;
   IF _timezone IS NULL THEN
-    SELECT IFNULL(NULLIF(TRIM(timezone),''),'America/Mexico_City') INTO _timezone FROM syncInfo WHERE serviceID = _serviceID;
+    SELECT IFNULL(NULLIF(TRIM(timezone),''),'US/Eastern') INTO _timezone FROM syncInfo WHERE serviceID = _serviceID;
   END IF;
   SELECT CONVERT_TZ(syncDate, 'UTC', _timezone) INTO _timestamp FROM `bipost_system`.bipost_sync_info WHERE id = _syncID;
   SELECT IFNULL(CAST(_timestamp AS date),'0000-00-00 00:00:00.0000') INTO _syncDate;
@@ -194,21 +174,18 @@ postfinal:BEGIN
   IF IFNULL(fnServiceDate(),'0000-00-00 00:00:00.0000') <> '0000-00-00 00:00:00.0000' AND _count_businessDay > 0 THEN
 
     REPLACE INTO dateInfo (tag, cDate)
-    SELECT 'ayer', fnDateInfo('ayer',fnServiceDate());
+    SELECT 'yesterday', fnDateInfo('yesterday',fnServiceDate());
 
     REPLACE INTO dateInfo (tag, cDate)
-    SELECT 'anteayer', fnDateInfo('anteayer',fnServiceDate());
+    SELECT 'day before yesterday', fnDateInfo('day before yesterday',fnServiceDate());
 
     REPLACE INTO ymInfo (tag, y, m)
-    SELECT 'corriente', YEAR(fnDateInfo('ayer',fnServiceDate())), MONTH(fnDateInfo('ayer',fnServiceDate()));
+    SELECT 'current', YEAR(fnDateInfo('yesterday',fnServiceDate())), MONTH(fnDateInfo('yesterday',fnServiceDate()));
 
   END IF;
 
-  call spReportesVentas(_serviceID);
-  call spReportesCx(_serviceID);
-  call spCalcBiModulosGrupo1(_serviceID);
-  call spReportesConta(_serviceID);
---  call spCleanData;
+  call spReport1(_serviceID);
+  call spReport2(_serviceID);
 
   INSERT INTO logPostFinal (message, serviceID, syncID) VALUES ('ok', _serviceID, _syncID);
   SELECT 'ok' AS message;
