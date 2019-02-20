@@ -138,14 +138,10 @@ CREATE PROCEDURE `spPostFinal`(
   )
 postfinal:BEGIN
 
-  DECLARE _SQL  longtext;
-  DECLARE _store varchar(10);
   DECLARE _timestamp datetime;
   DECLARE _syncDate date;
   DECLARE _timezone varchar(64);
-  DECLARE _rid, _prevId, _count_bipost_sync_info, _count_table, _count_businessDay int;
-  DECLARE _numDays decimal(10,0);
-  DECLARE _tableName, _comment1, _comment2 varchar(255);
+  DECLARE _count_businessDay int;
 
   SET lc_time_names = 'en_US';
   SET group_concat_max_len = 4294967295;
@@ -168,21 +164,6 @@ postfinal:BEGIN
   UPDATE syncInfo
     SET syncDate = _syncDate, `timestamp` = _timestamp, lastSyncId = _syncID
     WHERE serviceID = _serviceID;
-
-  SELECT COUNT(*) INTO _count_businessDay FROM businessDay;
-
-  IF IFNULL(fnServiceDate(),'0000-00-00 00:00:00.0000') <> '0000-00-00 00:00:00.0000' AND _count_businessDay > 0 THEN
-
-    REPLACE INTO dateInfo (tag, cDate)
-    SELECT 'yesterday', fnDateInfo('yesterday',fnServiceDate());
-
-    REPLACE INTO dateInfo (tag, cDate)
-    SELECT 'day before yesterday', fnDateInfo('day before yesterday',fnServiceDate());
-
-    REPLACE INTO ymInfo (tag, y, m)
-    SELECT 'current', YEAR(fnDateInfo('yesterday',fnServiceDate())), MONTH(fnDateInfo('yesterday',fnServiceDate()));
-
-  END IF;
 
   call spReport1(_serviceID);
   call spReport2(_serviceID);
