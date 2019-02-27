@@ -1,6 +1,6 @@
 [
     {
         "table": "DOCTOS_IN_DET_COMPRAS",
-        "primaryKey": ["ARTICULO_ID", "DOCTO_IN_DET_ID", "FECHA"]
+        "primaryKey": ["ARTICULO_ID", "DOCTO_IN_DET_ID"]
     }
 ]
