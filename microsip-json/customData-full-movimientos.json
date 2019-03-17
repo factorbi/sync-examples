@@ -225,7 +225,19 @@
     "order": "",
     "limit": "",
     "comment1": "-1",
-    "comment2": "ALTER TABLE DOCTOS_IN_DET_COMPRAS ADD PRIMARY KEY (ARTICULO_ID, DOCTO_IN_DET_ID)"
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "DOCTOS_PROC_CANCEL",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
   },
   {
     "active": "true",
@@ -266,6 +278,54 @@
   {
     "active": "true",
     "table": "DOCTOS_VE_LIGAS_DET",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "EDOSCTA_BA",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "EDOSCTA_BA_DET",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "EXCEP_EMPLEADOS",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "EXCEP_GENERALES",
     "fields": "*",
     "join": "",
     "filter": "",
@@ -503,7 +563,6 @@
     "comment1": "-1",
     "comment2": ""
   },
-
   {
     "active": "true",
     "table": "MOVTOS_CAJAS",
@@ -552,7 +611,54 @@
     "comment1": "-1",
     "comment2": ""
   },
-
+  {
+    "active": "true",
+    "table": "NOMINAS",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "PAGOS_NOMINA",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "PAGOS_NOMINA_DET",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "PAGOS_NOMINA_VAC",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
   {
     "active": "true",
     "table": "REPOSITORIO_CFDI",
@@ -697,7 +803,6 @@
     "comment1": "-1",
     "comment2": ""
   },
-
   {
     "active": "true",
     "table": "DOCTOS_PV",

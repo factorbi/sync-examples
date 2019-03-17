@@ -157,6 +157,30 @@
   },
   {
     "active": "true",
+    "table": "CLAVES_CLIENTES",
+    "fields": "CLAVES_CLIENTES.*",
+    "join": "CLIENTES ON CLAVES_CLIENTES.CLIENTE_ID = CLIENTES.CLIENTE_ID",
+    "filter": "((CAST(CLIENTES.FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(CLIENTES.FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "CLAVES_PROVEEDORES",
+    "fields": "CLAVES_PROVEEDORES.*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
     "table": "CLIENTES",
     "fields": "*",
     "join": "",
@@ -217,7 +241,31 @@
   },
   {
     "active": "true",
+    "table": "CONCEPTOS_EMP",
+    "fields": "CONCEPTOS_EMP.*",
+    "join": "EMPLEADOS ON CONCEPTOS_EMP.EMPLEADO_ID = EMPLEADOS.EMPLEADO_ID",
+    "filter": "((CAST(EMPLEADOS.FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(EMPLEADOS.FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
+    "comment2": ""
+  },
+  {
+    "active": "true",
     "table": "CONCEPTOS_IN",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "CONCEPTOS_NO",
     "fields": "*",
     "join": "",
     "filter": "",
@@ -314,6 +362,18 @@
   {
     "active": "true",
     "table": "DEPTOS_CO",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "DEPTOS_NO",
     "fields": "*",
     "join": "",
     "filter": "",
@@ -565,6 +625,18 @@
   },
   {
     "active": "true",
+    "table": "DOCTOS_PROC_CANCEL",
+    "fields": "",
+    "join": "",
+    "filter": "(CAST(FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
+    "comment2": ""
+  },
+  {
+    "active": "true",
     "table": "DOCTOS_VE",
     "fields": "DOCTOS_VE.*",
     "join": "",
@@ -613,6 +685,42 @@
   },
   {
     "active": "true",
+    "table": "EDOSCTA_BA",
+    "fields": "*",
+    "join": "",
+    "filter": "((CAST(FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "EDOSCTA_BA_DET",
+    "fields": "EDOSCTA_BA_DET.*",
+    "join": "EDOSCTA_BA ON EDOSCTA_BA_DET.EDOCTA_BA_ID = EDOSCTA_BA.EDOCTA_BA_ID",
+    "filter": "((CAST(EDOSCTA_BA.FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(EDOSCTA_BA.FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "EMPLEADOS",
+    "fields": "*",
+    "join": "",
+    "filter": "((CAST(FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
+    "comment2": ""
+  },
+  {
+    "active": "true",
     "table": "ESTADOS",
     "fields": "*",
     "join": "",
@@ -621,6 +729,30 @@
     "order": "",
     "limit": "",
     "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "EXCEP_EMPLEADOS",
+    "fields": "EXCEP_EMPLEADOS.*",
+    "join": "NOMINAS ON EXCEP_EMPLEADOS.NOMINA_ID = NOMINAS.NOMINA_ID",
+    "filter": "(NOMINAS.FECHA BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(NOMINAS.FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(NOMINAS.FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "EXCEP_GENERALES",
+    "fields": "EXCEP_GENERALES.*",
+    "join": "NOMINAS ON EXCEP_GENERALES.NOMINA_ID = NOMINAS.NOMINA_ID",
+    "filter": "(NOMINAS.FECHA BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(NOMINAS.FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(NOMINAS.FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
     "comment2": ""
   },
   {
@@ -1031,8 +1163,6 @@
     "comment1": "-1",
     "comment2": ""
   },
-
-
   {
     "active": "true",
     "table": "MOVTOS_CAJAS",
@@ -1081,7 +1211,54 @@
     "comment1": "30",
     "comment2": ""
   },
-
+  {
+    "active": "true",
+    "table": "NOMINAS",
+    "fields": "*",
+    "join": "",
+    "filter": "(FECHA BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "PAGOS_NOMINA",
+    "fields": "*",
+    "join": "",
+    "filter": "(FECHA BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "PAGOS_NOMINA_DET",
+    "fields": "PAGOS_NOMINA_DET.*",
+    "join": "PAGOS_NOMINA ON PAGOS_NOMINA_DET.PAGO_NOMINA_ID = PAGOS_NOMINA.PAGO_NOMINA_ID",
+    "filter": "(PAGOS_NOMINA.FECHA BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(PAGOS_NOMINA.FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(PAGOS_NOMINA.FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(PAGOS_NOMINA_DET.FECHA AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "PAGOS_NOMINA_VAC",
+    "fields": "PAGOS_NOMINA_VAC.*",
+    "join": "PAGOS_NOMINA ON PAGOS_NOMINA_VAC.PAGO_NOMINA_ID = PAGOS_NOMINA.PAGO_NOMINA_ID",
+    "filter": "(PAGOS_NOMINA.FECHA BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(PAGOS_NOMINA.FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(PAGOS_NOMINA.FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date))",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "30",
+    "comment2": ""
+  },
   {
     "active": "true",
     "table": "PAISES",
@@ -1168,6 +1345,18 @@
   },
   {
     "active": "true",
+    "table": "PUESTOS_NO",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
     "table": "REGISTRY",
     "fields": "ELEMENTO_ID, NOMBRE, TIPO, PADRE_ID, VALOR",
     "join": "",
@@ -1181,7 +1370,7 @@
   {
     "active": "true",
     "table": "REPOSITORIO_CFDI",
-    "fields": "CFDI_ID, MODALIDAD_FACTURACION, UUID, NATURALEZA, TIPO_COMPROBANTE, TIPO_DOCTO_MSP, FOLIO, FECHA, RFC, TAXID, NOMBRE, IMPORTE, MONEDA, TIPO_CAMBIO, ES_PARCIALIDAD, REFER_GRUPO, FECHA_CANCELACION, SELLO_VALIDADO, FECHA_HORA_CREACION, FECHA_HORA_ULT_MODIF ",
+    "fields": "*",
     "join": "",
     "filter": "((FECHA BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(FECHA_HORA_CREACION AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (CAST(FECHA_HORA_ULT_MODIF AS date) BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)) OR (FECHA_CANCELACION BETWEEN DATEADD(-30 day to CAST('Now' as date)) AND CAST('Now' as date)))",
     "recursiveDateField": "",
@@ -1193,6 +1382,30 @@
   {
     "active": "true",
     "table": "ROLES_CLAVES_ARTICULOS",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "ROLES_CLAVES_CLIENTES",
+    "fields": "*",
+    "join": "",
+    "filter": "",
+    "recursiveDateField": "",
+    "order": "",
+    "limit": "",
+    "comment1": "-1",
+    "comment2": ""
+  },
+  {
+    "active": "true",
+    "table": "ROLES_CLAVES_PROVEEDORES",
     "fields": "*",
     "join": "",
     "filter": "",
@@ -1454,8 +1667,6 @@
     "comment1": "-1",
     "comment2": ""
   },
-
-
   {
     "active": "true",
     "table": "DOCTOS_PV",
